@@ -1,0 +1,57 @@
+<div class="mt-4">
+    <h2>Llena los campos</h2>
+    <hr>
+
+    <form #printerForm="ngForm" (ngSubmit)='printLabel(printerForm.form)' novalidate class="pt-3">
+        <div class="d-flex justify-content-between">
+            <div class="form-group">
+                <label for="nombres">Nombre(s) <span class="text-danger">(*)</span></label>
+                <input required #nombre='ngModel' [class.is-invalid]='nombre.invalid && nombre.touched' type="text"
+                    id="nombres" class="form-control" [(ngModel)]="model.nombre" name='nombre'
+                    (change)="updateLabelPreview()" />
+                <small class="text-danger" [class.d-none]='nombre.valid || nombre.untouched'>Este campo es
+                    requerido</small>
+            </div>
+            <div class="form-group">
+                <label for="apellido">Apellido(s) <span class="text-danger">(*)</span></label>
+                <input required #apellido='ngModel' [class.is-invalid]='apellido.invalid && apellido.touched'
+                    type="text" id="apellido" class="form-control" [(ngModel)]="model.apellido" name='apellido'
+                    (change)="updateLabelPreview()" />
+                <small class="text-danger" [class.d-none]='apellido.valid || apellido.untouched'>Este campo es
+                    requerido</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="numeroTelefono">Número telefónico <span class="text-danger">(*)</span></label>
+            <input required #numeroTelefono='ngModel' placeholder="xxx xxx-xxxx"
+                [class.is-invalid]='numeroTelefono.invalid && numeroTelefono.touched' type="text" id="numeroTelefono"
+                class="form-control" [(ngModel)]="model.numeroTelefono" name='numeroTelefono'
+                (change)="updateLabelPreview()" />
+            <small class="text-danger" [class.d-none]='numeroTelefono.valid || numeroTelefono.untouched'>Este campo es
+                requerido</small>
+        </div>
+        <div class="form-group">
+            <label for="correo">Corréo electrónico <span class="text-danger">(*)</span></label>
+            <input required [email]="model.correo !== ''" #correo='ngModel' placeholder="ejemplo@gmail.com"
+                [class.is-invalid]='correo.invalid && correo.touched' type="text" id="correo" class="form-control"
+                [(ngModel)]="model.correo" name='correo' (change)="updateLabelPreview()" />
+            <div *ngIf='correo.errors && (correo.invalid && correo.touched)'>
+                <small class="text-danger" *ngIf='correo.errors.required'>Este campo es
+                    requerido</small>
+                <small class="text-danger" *ngIf='correo.errors.email'>El corréo electrónico ingresado no es
+                    valido</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fechaNacimiento">Fecha de nacimiento <span class="text-danger">(*)</span></label>
+            <input required #fechaNacimiento='ngModel' type="date" id="fechaNacimiento" class="form-control"
+                [class.is-invalid]='fechaNacimiento.invalid && fechaNacimiento.touched'
+                [(ngModel)]="model.fechaNacimiento" name='fechaNacimiento' (change)="updateLabelPreview()" />
+            <small class="text-danger" [class.d-none]='fechaNacimiento.valid || fechaNacimiento.untouched'>Este campo es
+                requerido</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!printerForm.valid">Imprimir</button>
+
+    </form>
+</div>
